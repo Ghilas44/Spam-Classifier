@@ -23,3 +23,6 @@ def test_ham():
     response = client.post("/check", data={"message": "Hello, how are you today?"})
     assert response.status_code == 200
     assert response.json()["is_spam"] is False
+
+def test_plus():
+    assert True
