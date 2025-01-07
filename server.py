@@ -14,7 +14,7 @@ Nous récupérons les mots présents dans le message envoyé et vérifions si il
 load_dotenv()
 
 def get_db_connection():
-    con = sqlite3.connect(os.getenv('messages.db'))
+    con = sqlite3.connect('messages.db')
     con.row_factory = sqlite3.Row  # Retourne des résultats sous forme de dictionnaire
     return con
 
