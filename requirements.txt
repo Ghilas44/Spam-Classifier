@@ -5,3 +5,5 @@ fastapi[standard]
 python-multipart
 pytest
 pydantic
+bcrypt
+pyjwt

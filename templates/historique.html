@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Accueil</a>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/docs">Vers la documentation
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link active" href="/historique">Historique des messages
+                          <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Bouton de déconnexion -->
+                <form method="get" action="/logout">
+                    <button type="submit" class="btn btn-danger mt-4">Se déconnecter</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Historique des messages</h1>
+        
+        <!-- Affichage des messages -->
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Contenu</th>
+                    <th>Date d'envoi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages_list %}
+                <tr>
+                    <td>{{ message['type'] }}</td>
+                    <td>{{ message['content'] }}</td>
+                    <!-- Vérifier si 'timestamp' existe et est valide -->
+                    {% if message['timestamp'] %}
+                    <td>{{ message['timestamp'] }}</td>
+                    {% else %}
+                    <td>Pas de date</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between">
+            {% if page > 1 %}
+            <a href="/historique?page={{ page - 1 }}" class="btn btn-secondary">Page précédente</a>
+            {% endif %}
+
+            {% if page < total_pages %}
+            <a href="/historique?page={{ page + 1 }}" class="btn btn-secondary">Page suivante</a>
+            {% endif %}
+        </div>
+
+        <!-- Lien pour revenir à l'accueil -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Revenir à la page d'accueil</a>
+        </div>
+    </div>
+</body>
+</html>
